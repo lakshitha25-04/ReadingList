@@ -1,0 +1,20 @@
+{
+ "genres": [
+  { "id": 1, "name": "Fiction" },
+  { "id": 2, "name": "Sci-Fi" },
+  { "id": 3, "name": "Biography" },
+  { "id": 4, "name": "Self-Help" }
+],
+  "users": [{ "id": "1", "name": "Alex Morgan", "email": "alex@readinglist.app", "favouriteGenre": "Fiction", "booksReadThisYear": 12, "streakDays": 2, "mode": "adult" }],
+  "books": [
+    { "id":"1", "title":"The Midnight Library", "author":"Matt Haig", "genre":"Fiction", "rating":4.5, "pages":304, "featured":true, "queued":true, "description":"Between life and death there is a library of possible lives.", "cover":"https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=500&q=80" },
+    { "id":"2", "title":"Project Hail Mary", "author":"Andy Weir", "genre":"Sci-Fi", "rating":4.7, "pages":496, "queued":true, "description":"A lone astronaut has an impossible mission to save Earth.", "cover":"https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=500&q=80" },
+    { "id":"3", "title":"Educated", "author":"Tara Westover", "genre":"Biography", "rating":4.6, "pages":352, "description":"A memoir about education and transformation.", "cover":"https://images.unsplash.com/photo-1543002588-bfa74002ed7e?auto=format&fit=crop&w=500&q=80" },
+    { "id":"4", "title":"Atomic Habits", "author":"James Clear", "genre":"Self-Help", "rating":4.8, "pages":320, "queued":true, "description":"A practical guide to tiny changes and remarkable results.", "cover":"https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=500&q=80" },
+    { "id":"5", "title":"The Seven Husbands", "author":"Taylor Jenkins Reid", "genre":"Fiction", "rating":4.4, "pages":400, "description":"A film icon tells her glamorous life story.", "cover":"https://images.unsplash.com/photo-1495446815901-a7297e633e8d?auto=format&fit=crop&w=500&q=80" },
+    { "id":"6", "title":"Klara and the Sun", "author":"Kazuo Ishiguro", "genre":"Sci-Fi", "rating":4.2, "pages":320, "description":"An artificial friend dreams of being chosen.", "cover":"https://images.unsplash.com/photo-1526243741027-444d633d7365?auto=format&fit=crop&w=500&q=80" },
+    { "id":"7", "title":"Becoming", "author":"Michelle Obama", "genre":"Biography", "rating":4.8, "pages":448, "description":"The former First Lady shares her life story.", "cover":"https://images.unsplash.com/photo-1511108690759-009324a90311?auto=format&fit=crop&w=500&q=80" },
+    { "id":"8", "title":"The Mountain Is You", "author":"Brianna Wiest", "genre":"Self-Help", "rating":4.3, "pages":248, "description":"A guide to overcoming self-sabotage.", "cover":"https://images.unsplash.com/photo-1476275466078-4007374efbbe?auto=format&fit=crop&w=500&q=80" }
+  ],
+  "featured": [{ "id":"1", "title":"The Midnight Library", "author":"Matt Haig", "genre":"Fiction", "rating":4.5, "pages":304, "featured":true, "queued":true, "description":"Between life and death there is a library of possible lives.", "cover":"https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=500&q=80" }]
+}

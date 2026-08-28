@@ -1,0 +1,8 @@
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Book } from '../types';
+import { Palette } from '../theme/colors';
+
+export function BookCard({ book, colors, kids = false, onPress }: { book: Book; colors: Palette; kids?: boolean; onPress?: () => void }) {
+  return <TouchableOpacity onPress={onPress} style={[styles.card, kids && styles.kidsCard, { backgroundColor: colors.surface, borderColor: colors.border }]}><Image source={{ uri: book.cover }} style={[styles.cover, kids && styles.kidsCover]} /><View style={styles.info}><Text numberOfLines={1} style={[styles.title, kids && styles.kidsTitle, { color: colors.text }]}>{book.title}</Text><Text numberOfLines={1} style={[styles.author, { color: colors.muted }]}>{book.author}</Text><View style={styles.meta}><Text style={[styles.genre, { color: colors.primary, backgroundColor: colors.chip }]}>{book.genre}</Text><Text style={[styles.rating, { color: colors.text }]}>★ {book.rating}</Text></View></View></TouchableOpacity>;
+}
+const styles = StyleSheet.create({ card: { width: 158, borderRadius: 16, overflow: 'hidden', borderWidth: 1, marginRight: 12 }, kidsCard: { width: 205, borderRadius: 22 }, cover: { height: 172, width: '100%', backgroundColor: '#DCE4E8' }, kidsCover: { height: 225 }, info: { padding: 10 }, title: { fontSize: 14, fontWeight: '800' }, kidsTitle: { fontSize: 17 }, author: { fontSize: 12, marginTop: 3 }, meta: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 9 }, genre: { fontSize: 10, fontWeight: '800', overflow: 'hidden', paddingHorizontal: 7, paddingVertical: 4, borderRadius: 9 }, rating: { fontSize: 11, fontWeight: '700' } });
