@@ -1,7 +1,7 @@
 // @ts-nocheck
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useEffect, useState } from 'react';
-import { ActivityIndicator, Alert, FlatList, Image, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { useEffect, useRef, useState } from 'react';
+import { ActivityIndicator, Alert, Animated, FlatList, Image, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useSelector } from 'react-redux';
 import { BookCard } from '../components/BookCard';
@@ -15,6 +15,9 @@ import { paletteFor } from '../theme/colors';
 import { Book, ReadingMode, ReadingStatus } from '../types';
 
 const genres = ['Fiction', 'Sci-Fi', 'Biography', 'Self-Help'];
+function KidsMascot() { const bob = useRef(new Animated.Value(0)).current; useEffect(() => { const animation = Animated.loop(Animated.sequence([Animated.timing(bob, { toValue: 1, duration: 850, useNativeDriver: true }), Animated.timing(bob, { toValue: 0, duration: 850, useNativeDriver: true })])); animation.start(); return () => animation.stop(); }, [bob]); return <Animated.View accessibilityLabel="A friendly reading owl" style={[{ position: 'absolute', right: 22, top: 60, alignItems: 'center', zIndex: 2 }, { transform: [{ translateY: bob.interpolate({ inputRange: [0, 1], outputRange: [0, -12] }) }, { rotate: bob.interpolate({ inputRange: [0, 1], outputRange: ['-4deg', '4deg'] }) }] }]}><Text style={{ fontSize: 65 }}>🦉</Text><Text style={{ fontSize: 26, marginTop: -20 }}>📖</Text></Animated.View>; }
+export function KidsHomeScreen({ navigation }: any) { return <View style={{ flex: 1 }}><HomeScreen navigation={navigation} /><KidsMascot /></View>; }
+export function KidsBadgesScreen() { const earned = useSelector((state: RootState) => state.gamification.earnedBadges); const badges = [{ id: 'bookworm', icon: '📚', name: 'Bookworm', detail: 'Finish 3 books', color: '#FF7A00' }, { id: 'on-fire', icon: '🔥', name: 'On Fire', detail: 'Reach a 3-day streak', color: '#FF3D81' }, { id: 'explorer', icon: '🗺️', name: 'Explorer', detail: 'Try 4 genres', color: '#17C3B2' }, { id: 'star', icon: '⭐', name: 'Star Reader', detail: 'Read every day', color: '#6C2BD9' }]; return <ScrollView contentContainerStyle={[styles.page, { backgroundColor: '#FFF4B8' }]}><Text style={{ fontSize: 29, fontWeight: '900', color: '#6C2BD9' }}>Badge Treasure Box</Text><Text style={{ fontSize: 16, fontWeight: '700', color: '#5B4774', marginTop: 5 }}>Keep reading to unlock colorful surprises!</Text><View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>{badges.map(badge => { const unlocked = earned.includes(badge.id); return <View key={badge.id} style={[{ width: '47%', minHeight: 190, backgroundColor: '#FFFFFF', borderRadius: 26, borderWidth: 5, padding: 13, alignItems: 'center', justifyContent: 'center', marginTop: 18, shadowColor: badge.color, shadowOpacity: .25, shadowOffset: { width: 0, height: 6 }, shadowRadius: 7, elevation: 6 }, { borderColor: badge.color, opacity: unlocked ? 1 : .55 }]}><View style={{ width: 76, height: 76, borderRadius: 38, alignItems: 'center', justifyContent: 'center', backgroundColor: unlocked ? badge.color : '#D7D1DE' }}><Text style={{ fontSize: 43 }}>{unlocked ? badge.icon : '🔒'}</Text></View><Text style={{ fontSize: 17, fontWeight: '900', color: '#24113D', marginTop: 9, textAlign: 'center' }}>{badge.name}</Text><Text style={{ fontSize: 13, fontWeight: '700', color: '#5B4774', marginTop: 3, textAlign: 'center' }}>{unlocked ? 'Unlocked!' : badge.detail}</Text></View>; })}</View></ScrollView>; }
 export function SplashScreen({ navigation }: any) {
   const { restoreSession } = useUser();
   useEffect(() => {
