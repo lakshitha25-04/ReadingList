@@ -1,0 +1,6 @@
+import { Request, Response } from "express";
+import { users } from "../data/store";
+const send = (res: Response, status: number, data?: unknown, message?: string) => res.status(status).json({ success: status < 400, ...(data !== undefined && { data }), ...(message && { message }) });
+export const getUser = (req: Request, res: Response) => { const user = users.find((u) => u.id === req.params.id); return user ? send(res, 200, user) : send(res, 404, undefined, "User not found"); };
+export const updateUser = (req: Request, res: Response) => { const user = users.find((u) => u.id === req.params.id); if (!user) return send(res, 404, undefined, "User not found"); Object.assign(user, { ...req.body, id: user.id }); return send(res, 200, user); };
+export const linkChild = (req: Request, res: Response) => { const parent = users.find((u) => u.id === req.params.id); const childId = req.body.childId as string; const child = users.find((u) => u.id === childId); if (!parent || !child) return send(res, 404, undefined, "Parent or child user not found"); if (parent.id === child.id) return send(res, 400, undefined, "A user cannot be their own child"); child.parentId = parent.id; parent.childIds = [...new Set([...(parent.childIds ?? []), child.id])]; return send(res, 200, { parent, child }, "Child profile linked"); };
