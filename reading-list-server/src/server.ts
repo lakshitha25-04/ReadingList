@@ -5,6 +5,7 @@ import fs from "fs";
 import multer from "multer";
 import path from "path";
 import { createApiRouter } from "./routes";
+import { connectDB } from "./config/db";
 
 const app = express();
 const uploadsDir = path.resolve(process.cwd(), "uploads");
@@ -25,4 +26,4 @@ app.use((_req, res) => res.status(404).json({ success: false, message: "Route no
 app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => { console.error(err); res.status(500).json({ success: false, message: "Internal server error" }); });
 
 const port = Number(process.env.PORT) || 5000;
-app.listen(port, () => console.log(`ReadingList server listening on port ${port}`));
+void connectDB().then(() => app.listen(port, () => console.log(`ReadingList server listening on port ${port}`))).catch(() => { process.exitCode = 1; });
