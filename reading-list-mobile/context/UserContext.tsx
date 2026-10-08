@@ -2,9 +2,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createContext, ReactNode, useContext, useState } from 'react';
 import { ReadingMode, User } from '../types';
 import { clearSessionStorage, readStorage, storageKeys, writeStorage } from '../services/storage';
-const initialUser: User = { name: 'Alex Morgan', email: 'alex@readinglist.app', favouriteGenre: 'Fiction', booksReadThisYear: 12, streakDays: 2, mode: 'adult' };
+const initialUser: User = { name: 'Alex Morgan', email: 'alex@readinglist.app', favouriteGenre: 'Fiction', booksReadThisYear: 12, readingGoal: 20, streakDays: 2, mode: 'adult' };
 type RegisteredUser = User & { phone: string; gender: string; dateOfBirth: string; city: string; passwordHash: string };
-type RegistrationInput = Omit<RegisteredUser, 'mode' | 'booksReadThisYear' | 'streakDays' | 'passwordHash'> & { password: string };
+type RegistrationInput = Omit<RegisteredUser, 'mode' | 'booksReadThisYear' | 'readingGoal' | 'streakDays' | 'passwordHash'> & { password: string };
 type UserValue = { user: User | null; mode: ReadingMode; login: (email: string, password: string) => Promise<{ ok: boolean; message: string }>; register: (input: RegistrationInput) => Promise<{ ok: boolean; message: string }>; logout: () => Promise<void>; setMode: (mode: ReadingMode) => void; persistMode: (mode: ReadingMode) => Promise<void>; restoreSession: (mode: ReadingMode) => Promise<void> };
 const UserContext = createContext<UserValue | undefined>(undefined);
 
@@ -25,7 +25,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
   const register = async (input: RegistrationInput) => {
     const users = await getRegisteredUsers(); const email = input.email.trim().toLowerCase();
     if (email === initialUser.email || users.some(candidate => candidate.email.toLowerCase() === email)) return { ok: false, message: 'An account already exists for this email.' };
-    const registeredUser: RegisteredUser = { name: input.name.trim(), email, phone: input.phone, gender: input.gender, dateOfBirth: input.dateOfBirth, city: input.city, favouriteGenre: input.favouriteGenre, passwordHash: hashPassword(input.password), booksReadThisYear: 0, streakDays: 0, mode: 'adult' };
+    const registeredUser: RegisteredUser = { name: input.name.trim(), email, phone: input.phone, gender: input.gender, dateOfBirth: input.dateOfBirth, city: input.city, favouriteGenre: input.favouriteGenre, passwordHash: hashPassword(input.password), booksReadThisYear: 0, readingGoal: 12, streakDays: 0, mode: 'adult' };
     await AsyncStorage.setItem('registered_users', JSON.stringify([...users, registeredUser]));
     return { ok: true, message: 'Registration successful. You can now log in.' };
   };

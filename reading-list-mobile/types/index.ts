@@ -4,7 +4,11 @@ export type ReadingStatus = 'to-read' | 'reading' | 'finished';
 export interface ReadingEntry {
   status: ReadingStatus;
   currentPage: number;
+  lastProgressUpdatedAt?: string;
 }
+
+export const BOOK_MOODS = ['Cozy', 'Thrilling', 'Emotional', 'Light-read', 'Inspiring', 'Dark'] as const;
+export type BookMood = typeof BOOK_MOODS[number];
 
 export interface Book {
   id: string;
@@ -17,6 +21,8 @@ export interface Book {
   cover: string;
   featured?: boolean;
   queued?: boolean;
+  mood?: BookMood;
+  external?: boolean;
 }
 
 export interface User {
@@ -25,5 +31,6 @@ export interface User {
   favouriteGenre: string;
   booksReadThisYear: number;
   streakDays: number;
+  readingGoal: number;
   mode: ReadingMode;
 }
